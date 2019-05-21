@@ -1,3 +1,8 @@
+`int threadId = 31 - threadIdx.x;`
+- order doesn't matter
+- must be aligned (256B default)
+
+
 ## Bank conflicts
 CUDA threads can use a small amount of scratchpad "shared" memory, that is located on chip and
 therefore has faster access times than the global GPU DRAM. This memory is accessed through multiple

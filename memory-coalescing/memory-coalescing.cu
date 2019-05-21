@@ -14,7 +14,7 @@ __global__ void kernel(Type* memory, int startOffset, int moveOffset)
 
     // repeatedly read and write to shared memory
     uint32_t index = threadId * startOffset;
-    for (int i = 0; i < 1000; i++)
+    for (int i = 0; i < 4000; i++)
     {
         memory[index] += index * i;
         index += moveOffset;
@@ -30,7 +30,7 @@ static void benchmark(int startOffset, int moveOffset)
     for (int i = 0; i < REPETITIONS; i++)
     {
         CudaTimer timer;
-        kernel<<<1, 32>>>(memory.pointer(), startOffset, moveOffset);  // launch exactly one warp
+        kernel<<<1, 32>>>(memory.pointer() + 1, startOffset, moveOffset);  // launch exactly one warp
         timer.stop_wait();
         time += timer.get_time();
     }
